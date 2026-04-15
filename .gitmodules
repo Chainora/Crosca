@@ -1,0 +1,6 @@
+[submodule "chainora-dapp"]
+	path = chainora-dapp
+	url = https://github.com/Chainora/chainora-dapp.git
+[submodule "chainora-contracts"]
+	path = chainora-contracts
+	url = https://github.com/Chainora/chainora-contracts
