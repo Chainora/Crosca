@@ -1,0 +1,12 @@
+{
+  "project_name": "iCrosca",
+  "repo_url": "https://github.com/Chainora/icrosa",
+  "commit_sha": "",
+  "rollup_chain_id": "chainora-testnet",
+  "deployed_address": "0x8abe4911f11285e7f710cbd769722e4bd4f3fb77",
+  "vm": "evm",
+  "native_feature": "initia-usernames",
+  "core_logic_path": "",
+  "native_feature_frontend_path": "",
+  "demo_video_url": "https://youtu.be/..."
+}
