@@ -6,7 +6,7 @@
   "deployed_address": "0x8abe4911f11285e7f710cbd769722e4bd4f3fb77",
   "vm": "evm",
   "native_feature": "initia-usernames",
-  "core_logic_path": "",
+  "core_logic_path": "chainora-contracts/src/pool/ChainoraRoscaPool.sol",
   "native_feature_frontend_path": "",
   "demo_video_url": "https://youtu.be/..."
 }
