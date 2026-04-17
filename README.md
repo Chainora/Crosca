@@ -14,6 +14,7 @@ Crosca introduces a programmable ROSCA primitive that preserves the cooperative 
 Rather than replacing the social dynamics that enable cooperative finance, Crosca formalizes them into verifiable on-chain guarantees. The result is a coordination mechanism that maintains flexibility while significantly improving reliability and scalability.
 
 Crosca positions ROSCA as a composable DeFi primitive for structured, group-based liquidity coordination.
+<img width="1587" height="786" alt="image" src="https://github.com/user-attachments/assets/06557419-08b7-4781-bcc9-b429117f3692" />
 
 ---
 
@@ -82,6 +83,7 @@ Key characteristics include:
 * scalable execution environment for repeated contract interaction
 
 Group-based financial coordination requires consistent execution guarantees, making Initia an appropriate environment for ROSCA primitives.
+<img width="1328" height="555" alt="image" src="https://github.com/user-attachments/assets/c3412eb5-5ca5-43b7-8bf8-b2b8f86c762a" />
 
 ---
 
