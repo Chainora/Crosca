@@ -1,200 +1,106 @@
+Dưới đây là phiên bản **README chuyên nghiệp, mạch lạc, đúng style DeFi protocol**, phù hợp submit hackathon Initia. Nội dung được viết theo flow thường thấy ở các protocol serious: **context → mechanism → design → positioning → vision**.
+
+---
+
 # Crosca
 
-**Trustless rotating savings for Vietnam's 10M+ hụi players — built on Initia.**
+**A reputation-weighted ROSCA primitive enabling reliable cooperative liquidity coordination — built on Initia.**
 
 ---
 
 ## Overview
 
-Hụi (rotating savings clubs) is Vietnam's oldest community finance tradition.
-Over 10 million people participate, circulating an estimated $2B+ per year —
-entirely informally, with zero consumer protection.
+Rotating Savings and Credit Associations (ROSCAs) are among the most widely adopted financial coordination mechanisms globally, enabling participants to accumulate savings, access lump-sum liquidity, and manage cash flow without relying on formal credit infrastructure. Despite their scale and resilience, ROSCAs remain constrained by informal trust assumptions, limited transparency, and inefficient risk allocation.
 
-crosca brings hụi on-chain. Smart contracts replace the trusted middleman.
-On-chain reputation replaces blind faith. Social vouching preserves the human
-relationships that make hụi work.
+Crosca introduces a programmable ROSCA primitive that preserves the cooperative structure of traditional capital rotation while providing deterministic enforcement through smart contracts. By combining reputation-weighted collateral, auction-based liquidity allocation, and automated default resolution, Crosca ensures predictable capital outcomes for participants without relying on centralized intermediaries.
 
-> Blockchain handles the money. People handle each other.
-> crosca handles both.
+Rather than replacing the social dynamics that enable cooperative finance, Crosca formalizes them into verifiable on-chain guarantees. The result is a coordination mechanism that maintains flexibility while significantly improving reliability and scalability.
+
+Crosca positions ROSCA as a composable DeFi primitive for structured, group-based liquidity coordination.
 
 ---
 
 ## Problem
 
-**1. Default risk with no consequences**
-When a member receives the pot and disappears, victims have no legal recourse.
-Defaulters leave no financial trace and can join new groups immediately.
-
-**2. The organiser holds all power — unchecked**
-The hụi chủ (organiser) collects, holds, and distributes all money manually —
-via notebooks or Zalo. No member can independently verify anything.
-
-**3. No portable credit history**
-A member with 10 years of perfect repayment has nothing to show for it when
-joining a new group. Trust resets to zero every time.
-
-**4. Existing tech makes it worse**
-Web2 apps digitise the process but don't change the risk structure. Money still
-flows through one person. Defaults still happen — just faster.
+| Challenge                    | Limitation in existing ROSCA systems                                                                                         |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Informal enforcement         | Participants rely on social pressure to ensure repayment, which becomes ineffective as group size or capital value increases |
+| Centralised custody risk     | Funds are typically held by an organiser, introducing counterparty risk and limiting transparency                            |
+| Non-portable credibility     | Historical repayment behaviour does not translate into verifiable financial reputation across groups                         |
+| Uniform risk requirements    | Participants with different risk exposure often provide equivalent guarantees, resulting in inefficient capital allocation   |
+| Limited transparency         | Participants cannot independently verify contribution flows or payout status                                                 |
+| Weak digital implementations | Existing web2 solutions improve coordination but do not change underlying trust assumptions                                  |
+| Limited scalability          | ROSCAs typically remain confined to closed social circles due to risk management constraints                                 |
 
 ---
 
 ## Solution
 
-crosca is a smart contract protocol that separates two things hụi has always
-bundled together: **trusting the money** and **trusting the people**.
+Crosca encodes ROSCA coordination logic into smart contracts, enabling deterministic execution of contribution flows, payout allocation, and risk resolution.
 
-### Smart Contract Escrow
-All contributions go directly from member wallets to a smart contract on Initia.
-No one — not even the organiser — can touch the funds outside the hụi process.
-Organiser-absconding is technically impossible.
-
-### Collateral System
-Each member locks collateral proportional to their actual remaining risk:
-Collateral is released gradually each period they pay on time.
-It earns yield while locked — so honest players get their money back plus interest.
-
-### Social Vouching
-An existing member can vouch for a new member, reducing their collateral by 50%.
-The voucher takes on 30–50% of liability if the vouchee defaults intentionally.
-This encodes the social accountability mechanism hụi has always relied on —
-with real financial consequences attached.
-
-### On-Chain Reputation
-Every on-time payment is recorded permanently on-chain.
-
-Reputation reduces collateral requirements across all future groups.
-It cannot be deleted, reset, or transferred — it follows the person's KYC identity.
-
-### Two-Track Member Approval
-- **Fast track**: Vouched by existing member → approved immediately
-- **Group vote**: No voucher → 2/3 approval required within 48h (silence = consent)
-
-### Default Resolution (Fully Automated)
-When a member misses payment:
-1. 72h grace period with push notifications
-2. If still unpaid → auto-deduct from their collateral
-3. If collateral insufficient → deduct from voucher's stake
-4. If still insufficient → reserve fund covers the remainder
-
-The group always receives full payment. No human intervention required.
+| Mechanism                          | Design Principle                                                                                                       |
+| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Smart contract escrow              | Contributions are transferred directly into on-chain contracts, eliminating organiser custody risk                     |
+| Reputation-weighted collateral     | Collateral requirements dynamically reflect each participant’s remaining payment obligation and historical reliability |
+| Auction-based liquidity allocation | Participants bid a discount to access pooled capital earlier, enabling endogenous pricing of liquidity preference      |
+| Social vouching                    | Existing participants can underwrite new entrants, aligning incentives through shared financial exposure               |
+| Automated default resolution       | Collateral, vouch stake, and reserve funds ensure payout completion even in the presence of participant default        |
+| Progressive collateral release     | Collateral requirements decrease as repayment obligations are fulfilled, improving capital efficiency                  |
+| On-chain credibility accumulation  | Contribution history generates a persistent reputation signal usable across future coordination cycles                 |
+| Shared reserve mechanism           | Collective buffer mitigates tail-risk scenarios without requiring excessive overcollateralization                      |
 
 ---
 
-## How It Works
+## Protocol Mechanism
+
+Crosca separates capital custody from social coordination.
+
+Participants maintain the flexibility to form groups based on existing relationships while relying on deterministic contract execution to enforce financial outcomes.
+
+A typical coordination cycle proceeds as follows:
+
+1. A ROSCA pool is instantiated with defined contribution size and duration
+2. Participants join through vouch-backed admission or group consensus
+3. Collateral requirements are calculated relative to payout position risk
+4. Recurring contributions are executed directly through smart contract escrow
+5. Participants bid for early access to pooled capital through a discount mechanism
+6. Auction outcomes determine payout order dynamically
+7. Collateral obligations decrease as repayment commitments are fulfilled
+8. Default scenarios are resolved automatically through deterministic on-chain rules
+9. Successful participation contributes to persistent reputation accumulation
+
+This structure enables dynamic liquidity access while ensuring predictable capital availability for all participants.
 
 ---
 
-## Initia Integration
+## Why Initia
 
-crosca is built natively for Initia — not a generic EVM deployment.
+Crosca benefits from Initia’s architecture, which supports predictable and efficient recurring financial coordination.
 
-- **Appchain**: Dedicated execution environment for hụi transactions
-- **OPinit**: Batch micro-transactions (weekly contributions) into single settlements
-- **Move VM**: Type-safe asset management, immune to reentrancy attacks
-- **IBC / Enshrined Liquidity**: Members pay in USDT/USDC from any connected chain
-- **Initia Oracle**: Real-time USDT/VND rate for Vietnam-friendly UI
-- **Native Staking**: Collateral pool auto-staked to generate yield for users and protocol
+Key characteristics include:
 
----
+* low-latency execution suitable for periodic contribution flows
+* modular design enabling specialised coordination logic
+* interoperability with identity and liquidity layers
+* scalable execution environment for repeated contract interaction
 
-## Revenue Model
-
-| Source | Rate | Who pays |
-|---|---|---|
-| Platform fee | 1% per pot | Deducted automatically at distribution |
-| Yield spread | 50% of collateral yield | Protocol share of staking rewards |
-| Premium features | Monthly subscription | Organisers who need advanced tools |
-
-No hidden fees. All rates displayed before joining a group.
-
----
-
-## Economic Model Summary
-
-For a 10-person group, 2M VND/period, 10 periods:
-
-| Item | Goes to |
-|---|---|
-| Pot (~20M VND) | Auction winner |
-| Auction spread | Split equally among non-winners |
-| 1% platform fee (200K) | crosca |
-| Collateral yield (50%) | Each member proportionally |
-| Collateral yield (50%) | crosca |
-| Unused reserve fund | Shared equally at end of season |
-
-A member who plays honestly pays ~1% effective fee and earns back collateral yield
-plus reserve bonus — net cost close to zero.
-
----
-
-## Target Users
-
-**Primary**: Urban Vietnamese aged 25–40 who have experienced or witnessed hụi fraud.
-Smartphone-native, financially active, open to new tools if the safety benefit is clear.
-
-**Secondary**: Overseas Vietnamese communities (US, Australia, Japan) who run hụi
-across borders — where stablecoin payments and smart contract escrow solve the
-cross-border trust and settlement problem directly.
-
-**Not targeted initially**: Traditional hụi players who already have a trusted organiser
-and see no reason to change. Conversion is possible later — not the first priority.
-
----
-
-## Go-to-Market
-
-**Phase 1 — Known groups (Q1–Q2)**
-Onboard existing hụi groups via Facebook communities and offline organiser networks.
-Target: 50 groups complete at least one full season.
-
-**Phase 2 — Network expansion (Q3–Q4)**
-Referral program at the group level. Organisers earn fee rebates for bringing new groups.
-Target: 500 active groups, 5,000+ members with on-chain reputation.
-
-**Phase 3 — Stranger matching (Year 2)**
-Reputation-based matching engine pairs strangers into groups by trust tier.
-Expand to overseas Vietnamese communities and similar ROSCA markets
-(Philippines, Indonesia, West Africa).
+Group-based financial coordination requires consistent execution guarantees, making Initia an appropriate environment for ROSCA primitives.
 
 ---
 
 ## Smart Contract Architecture
 
----
+
 
 ## Competitive Landscape
 
-| | Traditional hụi | Web2 hụi apps | ROSCA (global) | crosca |
-|---|---|---|---|---|
-| Who holds money | Organiser | Organiser | Organiser | Smart contract |
-| Default consequences | None | None | Minimal | Automatic, permanent |
-| Transparent | No | Partial | No | Fully on-chain |
-| Portable credit history | No | No | No | Yes |
-| Social trust preserved | Yes | Weak | Yes | Yes — by design |
-| Needs bank account | No | Yes | Partial | No |
-
----
-
-## Status
-
-- [x] Protocol design complete
-- [x] Smart contract architecture defined
-- [ ] HuiVault.move — core escrow logic (in progress)
-- [ ] CollateralManager.move
-- [ ] ReputationRegistry.move
-- [ ] Frontend (React Native)
-- [ ] Testnet deployment on Initia
-
----
-
-## Team
-
-> [Điền tên và vai trò của team vào đây]
-
----
-
-## License
-
-MIT
-
+| Feature                  | Traditional ROSCA    | Web2 ROSCA platforms | Crosca                     |
+| ------------------------ | -------------------- | -------------------- | -------------------------- |
+| fund custody             | organiser controlled | platform controlled  | smart contract escrow      |
+| execution guarantees     | informal             | partial              | deterministic              |
+| transparency             | limited              | restricted           | fully verifiable           |
+| credibility portability  | absent               | absent               | persistent on-chain record |
+| risk allocation          | uniform              | uniform              | dynamically weighted       |
+| liquidity timing         | negotiated manually  | platform assisted    | auction-priced             |
+| participant coordination | social               | platform mediated    | hybrid social-onchain      |
+| scalability              | localised            | limited              | composable                 |
