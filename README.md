@@ -1,6 +1,3 @@
-Dưới đây là phiên bản **README chuyên nghiệp, mạch lạc, đúng style DeFi protocol**, phù hợp submit hackathon Initia. Nội dung được viết theo flow thường thấy ở các protocol serious: **context → mechanism → design → positioning → vision**.
-
----
 
 # Crosca
 
