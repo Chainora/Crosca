@@ -4,3 +4,9 @@
 [submodule "chainora-contracts"]
 	path = chainora-contracts
 	url = https://github.com/Chainora/chainora-contracts
+[submodule "chainora-api"]
+	path = chainora-api
+	url = https://github.com/Chainora/chainora-api.git
+[submodule "chainora-native-app"]
+	path = chainora-native-app
+	url = https://github.com/Chainora/chainora-native-app.git

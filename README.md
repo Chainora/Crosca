@@ -5,7 +5,11 @@
 
 ---
 
-## Overview
+## Initia Hackathon Submission
+
+- **Project Name**: Crosca
+
+### Project Overview
 
 Rotating Savings and Credit Associations (ROSCAs) are among the most widely adopted financial coordination mechanisms globally, enabling participants to accumulate savings, access lump-sum liquidity, and manage cash flow without relying on formal credit infrastructure. Despite their scale and resilience, ROSCAs remain constrained by informal trust assumptions, limited transparency, and inefficient risk allocation.
 
@@ -14,6 +18,38 @@ Crosca introduces a programmable ROSCA primitive that preserves the cooperative 
 Rather than replacing the social dynamics that enable cooperative finance, Crosca formalizes them into verifiable on-chain guarantees. The result is a coordination mechanism that maintains flexibility while significantly improving reliability and scalability.
 
 Crosca positions ROSCA as a composable DeFi primitive for structured, group-based liquidity coordination.
+
+### Implementation Detail
+
+- **The Custom Implementation**: Crosca implements a ROSCA state machine with reputation-weighted collateral, auction-based payout ordering, progressive collateral release, and deterministic default/archive resolution on EVM contracts. Core pool logic is implemented in `chainora-contracts/src/pool/ChainoraRoscaPool.sol` with modular runtime components for membership, contribution, auction, settlement, and archive handling.
+- **The Native Feature**: Crosca integrates `initia-usernames` in the dApp profile flow (`chainora-dapp/src/pages/profile.tsx`) for username registration and identity display. For wallet and transaction UX, the app uses InterwovenKit-based connection and confirmation flow: transactions are submitted through relay-aware executors, then tracked via `waitForTxConfirmation`, and finalized with on-chain receipt checks (`waitForTransactionReceipt`) before UI state is updated.
+
+### How to Run Locally
+
+Prerequisites:
+- Node.js `20+`, Yarn `1.22.x`, Go `1.25.x`
+- Local PostgreSQL (or Supabase) for `chainora-api`
+- JavaCard + Chainora native app for full end-to-end signing flow
+
+1. Clone and init submodules:
+   - `git clone https://github.com/Chainora/Crosca.git`
+   - `cd Crosca`
+   - `git submodule update --init --recursive`
+2. Start backend (`chainora-api`):
+   - `cd chainora-api`
+   - `cp src/migration/config/.env.example src/migration/config/.env`
+   - fill required envs in `src/migration/config/.env` (`DATABASE_URL`, `JWT_SECRET`, `CHAINORA_RPC_URL`)
+   - `cd src/migration && go run .`
+   - `cd ../rest && CGO_ENABLED=0 go run .`
+3. Configure and run dApp (`chainora-dapp`):
+   - `cd ../../chainora-dapp`
+   - `cp .env.example .env.local`
+   - set required values in `.env.local` (`VITE_CHAINORA_API_URL`, `VITE_CHAINORA_RPC_URL`, `VITE_CHAINORA_CHAIN_ID`, `VITE_CHAINORA_REGISTRY_ADDRESS`, `VITE_CHAINORA_FACTORY_ADDRESS`, `VITE_CHAINORA_POOL_IMPLEMENTATION_ADDRESS`, `VITE_INTERWOVEN_NETWORK`, `VITE_INTERWOVEN_DEFAULT_CHAIN_ID`)
+   - `corepack yarn install`
+   - `corepack yarn dev`
+Note:
+- Full end-to-end signing and card-authenticated transaction flow requires a physical JavaCard and the paired native app environment.
+- In judge environments without JavaCard hardware, use the provided demo video to evaluate the complete final UX and transaction lifecycle.
 <img width="1587" height="786" alt="image" src="https://github.com/user-attachments/assets/06557419-08b7-4781-bcc9-b429117f3692" />
 
 ---
@@ -89,7 +125,12 @@ Group-based financial coordination requires consistent execution guarantees, mak
 
 ## Smart Contract Architecture
 
+- `ChainoraProtocolRegistry`: protocol control plane for canonical contract and adapter addresses.
+- `ChainoraRoscaFactory`: deploys pool instances (clone pattern) and anchors pool creation lifecycle.
+- `ChainoraRoscaPool` + modules: executable ROSCA runtime split across membership, contribution, auction, settlement, runtime sync, and default/archive modules.
+- `ChainoraProtocolTimelock`: governance and delayed admin controls for critical protocol configuration updates.
 
+Transaction lifecycle: users interact through the dApp, the factory and pool contracts enforce period transitions and payout/default rules on-chain, and frontend state is updated only after transaction confirmation and receipt validation.
 
 ## Competitive Landscape
 

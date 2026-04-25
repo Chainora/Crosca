@@ -1,12 +1,12 @@
 {
-  "project_name": "iCrosca",
-  "repo_url": "https://github.com/Chainora/icrosa",
+  "project_name": "Crosca",
+  "repo_url": "https://github.com/Chainora/Crosca",
   "commit_sha": "",
   "rollup_chain_id": "chainora-testnet",
-  "deployed_address": "0x8abe4911f11285e7f710cbd769722e4bd4f3fb77",
+  "deployed_address": "0xd879011fb323ecacc304f0eb411f84500f25eef3",
   "vm": "evm",
   "native_feature": "initia-usernames",
   "core_logic_path": "chainora-contracts/src/pool/ChainoraRoscaPool.sol",
-  "native_feature_frontend_path": "",
+  "native_feature_frontend_path": "chainora-dapp/src/pages/profile.tsx",
   "demo_video_url": "https://youtu.be/..."
 }
