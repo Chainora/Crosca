@@ -1,4 +1,3 @@
-
 # Crosca
 
 **A reputation-weighted ROSCA primitive enabling reliable cooperative liquidity coordination — built on Initia.**
@@ -19,6 +18,8 @@ Rather than replacing the social dynamics that enable cooperative finance, Crosc
 
 Crosca positions ROSCA as a composable DeFi primitive for structured, group-based liquidity coordination.
 
+![alt text](images/image_1.png)
+
 ### Implementation Detail
 
 - **The Custom Implementation**: Crosca implements a ROSCA state machine with reputation-weighted collateral, auction-based payout ordering, progressive collateral release, and deterministic default/archive resolution on EVM contracts. Core pool logic is implemented in `chainora-contracts/src/pool/ChainoraRoscaPool.sol` with modular runtime components for membership, contribution, auction, settlement, and archive handling.
@@ -27,6 +28,7 @@ Crosca positions ROSCA as a composable DeFi primitive for structured, group-base
 ### How to Run Locally
 
 Prerequisites:
+
 - Node.js `20+`, Yarn `1.22.x`, Go `1.25.x`
 - Local PostgreSQL (or Supabase) for `chainora-api`
 - JavaCard + Chainora native app for full end-to-end signing flow
@@ -49,10 +51,10 @@ Prerequisites:
    - set required values in `.env.local` (`VITE_CHAINORA_API_URL`, `VITE_CHAINORA_RPC_URL`, `VITE_CHAINORA_CHAIN_ID`, `VITE_CHAINORA_REGISTRY_ADDRESS`, `VITE_CHAINORA_FACTORY_ADDRESS`, `VITE_CHAINORA_POOL_IMPLEMENTATION_ADDRESS`, `VITE_INTERWOVEN_NETWORK`, `VITE_INTERWOVEN_DEFAULT_CHAIN_ID`)
    - `corepack yarn install`
    - `corepack yarn dev`
-Note:
+     Note:
+
 - Full end-to-end signing and card-authenticated transaction flow requires a physical JavaCard and the paired native app environment.
 - In judge environments without JavaCard hardware, use the provided demo video to evaluate the complete final UX and transaction lifecycle.
-<img width="1587" height="786" alt="image" src="https://github.com/user-attachments/assets/06557419-08b7-4781-bcc9-b429117f3692" />
 
 ---
 
@@ -79,7 +81,6 @@ Crosca encodes ROSCA coordination logic into smart contracts, enabling determini
 | Smart contract escrow              | Contributions are transferred directly into on-chain contracts, eliminating organiser custody risk                     |
 | Reputation-weighted collateral     | Collateral requirements dynamically reflect each participant’s remaining payment obligation and historical reliability |
 | Auction-based liquidity allocation | Participants bid a discount to access pooled capital earlier, enabling endogenous pricing of liquidity preference      |
-| Social vouching                    | Existing participants can underwrite new entrants, aligning incentives through shared financial exposure               |
 | Automated default resolution       | Collateral, vouch stake, and reserve funds ensure payout completion even in the presence of participant default        |
 | Progressive collateral release     | Collateral requirements decrease as repayment obligations are fulfilled, improving capital efficiency                  |
 | On-chain credibility accumulation  | Contribution history generates a persistent reputation signal usable across future coordination cycles                 |
@@ -115,13 +116,12 @@ Crosca benefits from Initia’s architecture, which supports predictable and eff
 
 Key characteristics include:
 
-* low-latency execution suitable for periodic contribution flows
-* modular design enabling specialised coordination logic
-* interoperability with identity and liquidity layers
-* scalable execution environment for repeated contract interaction
+- low-latency execution suitable for periodic contribution flows
+- modular design enabling specialised coordination logic
+- interoperability with identity and liquidity layers
+- scalable execution environment for repeated contract interaction
 
 Group-based financial coordination requires consistent execution guarantees, making Initia an appropriate environment for ROSCA primitives.
-<img width="1328" height="555" alt="image" src="https://github.com/user-attachments/assets/c3412eb5-5ca5-43b7-8bf8-b2b8f86c762a" />
 
 ---
 
