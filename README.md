@@ -39,8 +39,10 @@ Prerequisites:
    - `cd chainora-api`
    - `cp src/migration/config/.env.example src/migration/config/.env`
    - fill required envs in `src/migration/config/.env` (`DATABASE_URL`, `JWT_SECRET`, `CHAINORA_RPC_URL`)
-   - `cd src/migration && go run .`
-   - `cd ../rest && CGO_ENABLED=0 go run .`
+   - `make tidy`
+   - `make migrate`
+   - `make rest`
+   - optional (separate terminal): `make worker`
 3. Configure and run dApp (`chainora-dapp`):
    - `cd ../../chainora-dapp`
    - `cp .env.example .env.local`
